@@ -5,6 +5,6 @@ edition = "2024"
 
 [dependencies]
 
-polars = { version = "0.46", features = ["lazy", "csv", "parquet"] } 
+polars = { version = "0.46", features = ["lazy", "csv", "parquet", "ndarray"] }
 plotters = "0.3"
 ndarray = "0.15"
