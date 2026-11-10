@@ -3,7 +3,12 @@ use polars::prelude::*;
 use std::collections::HashMap;
 
 pub fn knn(k: usize) -> PolarsResult<f64> {
-    let (x_train, x_test, y_train, y_test) = diabetes_load()?;
+    let (mut x_train, mut x_test, y_train, y_test) = diabetes_load()?;
+    x_train.rechunk_mut();
+    x_test.rechunk_mut();
+    let y_train = y_train.rechunk();
+    let y_test = y_test.rechunk();
+
     let x_tr_array = x_train.to_ndarray::<Float64Type>(IndexOrder::Fortran)?;
     let x_te_array = x_test.to_ndarray::<Float64Type>(IndexOrder::Fortran)?;
     let y_tr_array = y_train.f64()?.to_ndarray()?;
